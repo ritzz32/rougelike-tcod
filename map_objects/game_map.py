@@ -11,8 +11,7 @@ class GameMap:
         self.tiles = self.initialize_tiles()
 
     def initialize_tiles(self):
-        tiles = [[Tile(True) for y in range(self.height)] for x in range(self.width)]
-
+        tiles = [[Tile('void') for y in range(self.height)] for x in range(self.width)]
         return tiles
 
     def make_map(self, max_rooms, room_min_size, room_max_size, map_width, map_height, player):

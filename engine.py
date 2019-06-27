@@ -17,6 +17,7 @@ def main():
     max_rooms = 30
 
     colors = {
+        'void': libtcod.Color(0, 0, 0),
         'dark_wall': libtcod.Color(0, 0, 100),
         'dark_ground': libtcod.Color(50, 50, 150)
     }
