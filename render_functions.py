@@ -1,7 +1,7 @@
 import tcod as libtcod
 
 
-def render_all(con, entities, game_map, screen_width, screen_height, colors):
+def render_all(con, entities, game_map, screen_width, screen_height):
     # Draw all the tiles in the game map
     for y in range(game_map.height):
         for x in range(game_map.width):
