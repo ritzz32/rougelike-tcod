@@ -41,7 +41,7 @@ def main():
     while not libtcod.console_is_window_closed():
         libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS, key, mouse)
 
-        render_all(con, entities, game_map, screen_width, screen_height, colors)
+        render_all(con, entities, game_map, screen_width, screen_height)
         libtcod.console_flush()
 
         clear_all(con, entities)

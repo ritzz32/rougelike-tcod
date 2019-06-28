@@ -9,12 +9,14 @@ class Tile:
         self.block_sight = None
         self.colors = colors
         self.color = None
+        self.designation = None
 
         if designation is None:
             designation = 'void'
         self.designate(designation)
 
     def designate(self, designation):
+        self.designation = designation
 
         designations = {
             'void': {'blocked': True, 'block_sight': True},

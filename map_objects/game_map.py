@@ -73,17 +73,26 @@ class GameMap:
         for x in range(room.x1, room.x2+1):
             for y in range(room.y1, room.y2+1):
                 if x == room.x1 or y == room.y1 or x == room.x2 or y == room.y2:
-                    self.tiles[x][y].designate('dark_wall')
+                    if self.tiles[x][y].designation == 'void':
+                        self.tiles[x][y].designate('dark_wall')
                 else:
                     self.tiles[x][y].designate('dark_ground')
 
     def create_h_tunnel(self, x1, x2, y):
         for x in range(min(x1, x2), max(x1, x2) + 1):
             self.tiles[x][y].designate('dark_ground')
+            if self.tiles[x][y-1].designation == 'void':
+                self.tiles[x][y-1].designate('dark_wall')
+            if self.tiles[x][y+1].designation == 'void':
+                self.tiles[x][y+1].designate('dark_wall')
 
     def create_v_tunnel(self, y1, y2, x):
         for y in range(min(y1, y2), max(y1, y2) + 1):
             self.tiles[x][y].designate('dark_ground')
+            if self.tiles[x-1][y].designation == 'void':
+                self.tiles[x-1][y].designate('dark_wall')
+            if self.tiles[x+1][y].designation == 'void':
+                self.tiles[x+1][y].designate('dark_wall')
 
     def is_blocked(self, x, y):
         if self.tiles[x][y].blocked:
