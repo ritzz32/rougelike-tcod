@@ -5,13 +5,14 @@ from map_objects.rectangle import Rect
 
 
 class GameMap:
-    def __init__(self, width, height):
+    def __init__(self, width, height, colors):
         self.width = width
         self.height = height
+        self.colors = colors
         self.tiles = self.initialize_tiles()
 
     def initialize_tiles(self):
-        tiles = [[Tile('void') for y in range(self.height)] for x in range(self.width)]
+        tiles = [[Tile(self.colors, 'void') for y in range(self.height)] for x in range(self.width)]
         return tiles
 
     def make_map(self, max_rooms, room_min_size, room_max_size, map_width, map_height, player):
@@ -69,20 +70,20 @@ class GameMap:
 
     def create_room(self, room):
         # go through the tiles in the rectangle and make them passable
-        for x in range(room.x1 + 1, room.x2):
-            for y in range(room.y1 + 1, room.y2):
-                self.tiles[x][y].blocked = False
-                self.tiles[x][y].block_sight = False
+        for x in range(room.x1, room.x2+1):
+            for y in range(room.y1, room.y2+1):
+                if x == room.x1 or y == room.y1 or x == room.x2 or y == room.y2:
+                    self.tiles[x][y].designate('dark_wall')
+                else:
+                    self.tiles[x][y].designate('dark_ground')
 
     def create_h_tunnel(self, x1, x2, y):
         for x in range(min(x1, x2), max(x1, x2) + 1):
-            self.tiles[x][y].blocked = False
-            self.tiles[x][y].block_sight = False
+            self.tiles[x][y].designate('dark_ground')
 
     def create_v_tunnel(self, y1, y2, x):
         for y in range(min(y1, y2), max(y1, y2) + 1):
-            self.tiles[x][y].blocked = False
-            self.tiles[x][y].block_sight = False
+            self.tiles[x][y].designate('dark_ground')
 
     def is_blocked(self, x, y):
         if self.tiles[x][y].blocked:
